@@ -5,16 +5,14 @@ import path = require('path');
 import { GetPatient,UpsertPatient } from "./routes/patients";
 import { RegisterRoute,RegisterRoutes } from "./routes/routeRegister";
 import { dbconnection } from "./db/connection";
+var cors = require('cors');
 
 
 const main = async()=>{
       await dbconnection();
       const app = express();
+      app.use(cors());
       app.use(express.json());
-
-      // app.get("/",(req,res)=>{
-      //       res.send("hell");
-      // } );
 
       RegisterRoute(app, "/", "GET", async(req:Request, res: Response) =>{
             res.send("Hello");
@@ -22,8 +20,7 @@ const main = async()=>{
 
       const routes = [
             {path:"/patients",method:"GET",handler:GetPatient},
-            {path:"/patients",method:"POST",handler:UpsertPatient}
-            
+            {path:"/patients",method:"POST",handler:UpsertPatient}   
       ];
 
       RegisterRoutes(app,routes);

@@ -14,16 +14,18 @@ export class DiseaseHistory {
   @Column("text", { name: "paitentDescription", nullable: true })
   paitentDescription: string | null;
 
-  @ManyToOne(() => Patient, (patient) => patient.diseaseHistories, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
+  @ManyToOne(() => Patient, (patient) => patient.diseaseHistories,
+  {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  }
+  )
   @JoinColumn([{ name: "paitentId", referencedColumnName: "id" }])
   paitent: Patient;
 
   @ManyToOne(() => Disease, (disease) => disease.diseaseHistories, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
   })
   @JoinColumn([{ name: "diseaseId", referencedColumnName: "id" }])
   disease: Disease;

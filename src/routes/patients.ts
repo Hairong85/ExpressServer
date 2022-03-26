@@ -3,11 +3,11 @@ import {Patient} from '../entities/Patient';
 
 
 function isPatient(arg: any): arg is Patient{
-      return arg.firstname != undefined || 
-             arg.surname != undefined ||
-             arg.phone != undefined||
-             arg.email != undefined ||
-             arg.hasPacemakeImplanted != undefined ||
+      return arg.firstname != undefined && 
+             arg.surname != undefined &&
+             arg.phone != undefined &&
+             arg.email != undefined &&
+             arg.hasPacemakeImplanted != undefined &&
              arg.hasAbnormalBleeding != undefined;
 }
 
@@ -20,30 +20,10 @@ class TypeError extends Error{
       }
 }
 
-// var data = [
-//       {
-//             id: 1,
-//             firstname: "William",
-//             lastname: "Gao"
-//       },
-//       {
-//             id: 2,
-//             firstname: "Hairong",
-//             lastname: "Wu"
-//       }
-// ];
-
-
 
 
 const GetPatient = async(req:Request,res:Response)=>{
-
-
-      // const selectedPatients = (id == undefined && firstname == undefined && lastname == undefined)? 
-      //                               data : 
-      //                               data.filter(d => d.id == Number(id) || d.firstname == firstname || d.lastname == lastname);
-
-      const {id, firstname, lastname: surname} = req.query;
+      const {id, firstname, surname} = req.query;
 
       try{
             const selectedPatients = 
@@ -78,19 +58,12 @@ const UpsertPatient =async(req:Request,res:Response)=>{
                   throw new TypeError();
        
             if (obj.id==0){
-                  // const max = data.reduce((op, item) => op = op > item.id ? op : item.id, 0);
-                  // obj.id=max+1;
-                  // data=[...data,obj];
-                  // res.status(201).json({Result:"Success"});
                   await Patient.create(obj).save();
                   res.status(201).json({Result:"New Patient has been created successfully."});
             }
             else{
                   let oldObj = await Patient.findOneOrFail(obj.id);
                   if (oldObj!= undefined){
-                        // oldObj.firstname=obj.firstname;
-                        // oldObj.lastname=obj.lastname;
-                        // res.status(201).json({Result:"Success"});;
                         await Patient.update(oldObj.id,obj);
                         res.status(201).json({Result:`Patient ${obj.id} has been updated successfully.`});
                   }

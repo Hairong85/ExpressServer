@@ -44,7 +44,7 @@ export class Patient extends BaseEntity {
   @Column("tinyint", { name: "hasAbnormalBleeding", width: 1 })
   hasAbnormalBleeding: boolean;
 
-  @OneToMany(() => DiseaseHistory, (diseaseHistory) => diseaseHistory.paitent)
+  @OneToMany(() => DiseaseHistory, (diseaseHistory) => diseaseHistory.paitent,{cascade:["insert","update","remove"]})
   diseaseHistories: DiseaseHistory[];
 
   @OneToMany(() => Visit, (visit) => visit.patient)
