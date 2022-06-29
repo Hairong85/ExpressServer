@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   JoinTable,
@@ -8,7 +9,7 @@ import {
 import { Role } from "./Role";
 
 @Entity("user", { schema: "gNxd4xu6Vc" })
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 

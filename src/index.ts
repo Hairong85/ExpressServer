@@ -5,6 +5,7 @@ import path = require('path');
 import { GetPatient,UpsertPatient } from "./routes/patients";
 import { RegisterRoute,RegisterRoutes } from "./routes/routeRegister";
 import { dbconnection } from "./db/connection";
+import { GetUser } from "./routes/users";
 var cors = require('cors');
 
 
@@ -20,7 +21,8 @@ const main = async()=>{
 
       const routes = [
             {path:"/patients",method:"GET",handler:GetPatient},
-            {path:"/patients",method:"POST",handler:UpsertPatient}   
+            {path:"/patients",method:"POST",handler:UpsertPatient},
+            {path:"/user",method:"GET",handler:GetUser}    
       ];
 
       RegisterRoutes(app,routes);
